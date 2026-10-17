@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Portfolio | Travel &amp; Mountains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--coral:#E8725A;--larch:#E0A63B;--glacier:#A9D3E0;--deep:#0B1320;--bg:#F4F7F8;--alt:#DCEBF1;--text:#1B2A3A;--card:#fff;--line:#cbdbe3;
+--sky:linear-gradient(180deg,#1B2A3A 0%,#3C5A78 55%,#E8725A 100%);--r1:#7E9CB5;--r2:#4A6A87;--r3:#2D4A66}
+body.night{--bg:#0F1722;--alt:#162132;--text:#E6EEF4;--card:#1D2B3F;--line:#2C3E57;
+--sky:linear-gradient(180deg,#060B14 0%,#10203A 60%,#26395A 100%);--r1:#2E4560;--r2:#1D3048;--r3:#142235}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background .6s,color .6s}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+
+/* EDIT MODE: highlights every spot you must fill in. When you are done, delete class="editing" from the <body> tag. */
+.editing .fill{background:#FFE08A;color:#1B2A3A;padding:0 6px;border-radius:6px;outline:2px dashed var(--coral)}
+
+.top{position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;gap:4px 18px;justify-content:center;align-items:center;padding:8px 12px;background:rgba(11,19,32,.92)}
+.top a{color:#fff;text-decoration:none;font-weight:700;padding:4px 2px;border-bottom:2px solid transparent}
+.top a:hover{border-color:var(--glacier)}
+.pill{border:2px solid var(--larch);background:transparent;color:#fff;border-radius:999px;padding:3px 16px;font-weight:700;cursor:pointer}
+.pill:hover{background:var(--larch);color:#1B2A3A}
+.btn{display:inline-block;border:0;border-radius:999px;padding:11px 24px;background:var(--larch);color:#1B2A3A;font-weight:700;text-decoration:none;cursor:pointer}
+.btn:hover{background:#fff}
+.btn.dark{background:#fff;color:#0B1320}
+.btn.dark:hover{background:var(--larch)}
+
+/* Hero: sky, sun or moon, stars, four mountain layers (tap a peak to plant a flag) */
+.hero{position:relative;overflow:hidden;min-height:max(100svh,780px);background:var(--sky);color:#fff;text-align:center;transition:background .6s}
+.sky i{position:absolute;background:#fff;border-radius:50%;opacity:0;transition:opacity .8s}
+body.night .sky i{opacity:.9}
+.orb{position:absolute;left:68%;top:34vh;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle,#FFE9A8,#F6B14B);box-shadow:0 0 70px 30px rgba(246,177,75,.45);transition:all .8s}
+body.night .orb{left:20%;top:12vh;background:radial-gradient(circle at 35% 35%,#fff,#C9D6E2);box-shadow:0 0 40px 10px rgba(201,214,226,.25)}
+.layer{position:absolute;left:0;width:100%;bottom:0;pointer-events:none;will-change:transform}
+.layer svg{display:block;width:100%;height:100%}
+.layer polygon{pointer-events:visiblePainted;cursor:crosshair}
+.l1{height:min(46vh,420px)}.l2{height:min(36vh,320px)}.l3{height:min(27vh,240px)}.l4{height:min(17vh,150px)}
+.r1{fill:var(--r1)}.r2{fill:var(--r2)}.r3{fill:var(--r3)}.r4{fill:var(--bg);transition:fill .6s}
+.cap{fill:#fff;opacity:.92}
+.flag{position:absolute;width:0;height:0;animation:pop .35s;transform-origin:bottom}
+.flag::before{content:"";position:absolute;left:-1px;bottom:0;width:3px;height:30px;background:#fff}
+.flag::after{content:"";position:absolute;left:2px;bottom:16px;width:22px;height:14px;background:var(--coral);clip-path:polygon(0 0,100% 50%,0 100%)}
+@keyframes pop{from{transform:scale(.1)}}
+#snow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.content{position:relative;z-index:6;pointer-events:none;padding:34px 18px 0}
+.content button,.content a{pointer-events:auto}
+.avatar{width:104px;height:104px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:var(--bg);color:var(--text);border:4px solid var(--glacier);font:800 2rem Fraunces,Georgia,serif}
+.hero h1{font-size:clamp(2.3rem,9vw,4.4rem);font-weight:800}
+.hero p{max-width:36ch;margin:8px auto 16px;font-size:1.1rem}
+.row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.next{min-height:1.7em;margin-top:10px;font-weight:700}
+.hint{font-size:.9rem;opacity:.95}
+.link{background:none;border:0;color:#fff;text-decoration:underline;cursor:pointer;padding:0 4px;pointer-events:auto}
+
+/* Sections separated by jagged ridgelines */
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+section{position:relative;padding:76px 0 70px;background:var(--b,var(--bg));transition:background .6s}
+section::before{content:"";position:absolute;left:0;right:0;top:-59px;height:60px;background:var(--b,var(--bg));clip-path:polygon(0 100%,0 70%,8% 40%,14% 62%,24% 15%,33% 55%,41% 30%,52% 70%,63% 10%,72% 50%,81% 25%,90% 60%,100% 35%,100% 100%);transition:background .6s}
+#about{padding-top:30px}#about::before{display:none}
+#projects{--b:var(--alt)}
+#skills::before{clip-path:polygon(0 100%,0 40%,10% 65%,19% 20%,30% 60%,38% 35%,49% 8%,60% 55%,71% 30%,82% 65%,91% 25%,100% 55%,100% 100%)}
+#contact{--b:var(--deep);color:#fff}
+h2{font-size:clamp(2rem,6vw,3rem);margin-bottom:16px}
+h2::before{content:"";display:inline-block;width:.75em;height:.6em;margin-right:.35em;background:var(--coral);clip-path:polygon(50% 0,100% 100%,0 100%)}
+section p{max-width:62ch;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:10px}
+
+/* Project cards flip over when you click or tap them */
+.flip{position:relative;min-height:250px;perspective:900px;cursor:pointer}
+.face{position:absolute;inset:0;padding:22px;border-radius:14px;backface-visibility:hidden;transition:transform .6s;overflow:auto}
+.front{background:var(--card);border:1px solid var(--line);box-shadow:0 8px 20px rgba(11,19,32,.12)}
+.front::after{content:"";position:absolute;top:14px;right:14px;width:30px;height:38px;border:2px dashed var(--coral);border-radius:3px}
+.front h3{padding-right:44px}
+.back{background:#34506B;color:#fff;transform:rotateY(180deg)}
+.flip.on .front{transform:rotateY(-180deg)}.flip.on .back{transform:rotateY(0)}
+.tap{position:absolute;left:22px;bottom:14px;font-size:.85rem;opacity:.75}
+.face h3{font-size:1.4rem;margin-bottom:8px}
+
+/* Skills fill up as they scroll into view */
+.skill{margin-bottom:16px;max-width:560px;font-weight:700}
+.track{height:14px;margin-top:4px;border-radius:99px;background:var(--line);overflow:hidden}
+.level{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--glacier),var(--coral));transition:width 1.3s}
+.skill.in .level{width:var(--lvl)}
+.sub{font-size:1.3rem;margin:26px 0 12px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:transform .25s,background .6s}
+.box:hover{transform:translateY(-6px)}
+.box h3{font-size:1.35rem;margin-bottom:6px}
+
+footer{background:var(--deep);color:#fff;text-align:center;padding:26px 18px;font-size:.9rem}
+.alt{position:fixed;right:12px;bottom:12px;z-index:50;background:rgba(11,19,32,.9);color:#fff;border-radius:999px;padding:6px 14px;font-weight:700;font-size:.85rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+
+<!-- Delete class="editing" below once you have replaced every highlighted spot. -->
+<body class="editing">
+
+<nav class="top" aria-label="Sections">
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills &amp; interests</a>
+  <a href="#contact">Contact</a>
+  <button class="pill" id="mode" type="button" aria-pressed="false">Night mode</button>
+</nav>
+
+<header class="hero" id="top">
+  <div class="sky" id="stars"></div>
+  <div class="orb"></div>
+
+  <div class="layer l1"><svg viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <polygon class="r1" points="0,220 90,150 170,190 300,40 380,120 430,90 560,200 700,60 790,130 900,20 1010,140 1100,100 1200,170 1200,400 0,400"/>
+    <polygon class="cap" points="300,40 346,86 325,80 305,98 283,82 260,86"/>
+    <polygon class="cap" points="700,60 751,100 731,95 712,112 688,94 660,100"/>
+    <polygon class="cap" points="900,20 942,66 924,60 906,80 884,62 854,66"/></svg></div>
+  <div class="layer l2"><svg viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <polygon class="r2" points="0,300 100,240 200,280 330,160 440,250 520,210 640,290 760,170 880,260 1000,200 1100,260 1200,230 1200,400 0,400"/>
+    <polygon class="cap" points="330,160 373,195 352,190 335,205 312,188 292,195"/>
+    <polygon class="cap" points="760,170 807,205 787,200 770,215 748,198 725,205"/></svg></div>
+  <div class="layer l3"><svg viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <polygon class="r3" points="0,330 150,270 260,320 400,250 520,320 700,260 860,330 1000,280 1200,330 1200,400 0,400"/></svg></div>
+  <div class="layer l4"><svg viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <polygon class="r4" points="0,370 220,330 380,365 560,320 760,362 960,325 1200,360 1200,400 0,400"/></svg></div>
+
+  <canvas id="snow"></canvas>
+
+  <div class="content">
+    <!-- EDIT: your initials, e.g. AB -->
+    <div class="avatar"><span class="fill">YI</span></div>
+    <!-- EDIT: your full name -->
+    <h1>Hi, I’m <span class="fill">YOUR NAME</span></h1>
+    <!-- EDIT: one line about you, e.g. "Student, traveller and mountain chaser." -->
+    <p><span class="fill">YOUR ONE-LINE INTRO</span></p>
+    <div class="row">
+      <button class="btn" id="summit" type="button">Pick my next summit</button>
+      <button class="btn" id="snowbtn" type="button" aria-pressed="false">Let it snow</button>
+    </div>
+    <div class="next" id="next" aria-live="polite"></div>
+    <p class="hint">Click or tap a peak to plant a flag. Flags planted: <b id="flags">0</b> <button class="link" id="clear" type="button">clear</button></p>
+  </div>
+</header>
+
+<main>
+<section id="about"><div class="wrap">
+  <h2>About me</h2>
+  <!-- EDIT: replace the highlighted parts with your own details. Add more <p> lines if you like. -->
+  <p>I’m <span class="fill">YOUR NAME</span>, and I study <span class="fill">YOUR COURSE</span> at <span class="fill">YOUR COLLEGE / SCHOOL</span>.</p>
+  <p>I care about <span class="fill">2 OR 3 THINGS YOU CARE ABOUT</span>.</p>
+  <p>I love travelling and mountains. <span class="fill">ADD A SENTENCE ABOUT WHY</span></p>
+</div></section>
+
+<!-- PROJECTS: at least 2 are required. Click a card to flip it. To add a third, copy one whole <div class="flip">...</div> block. -->
+<section id="projects"><div class="wrap">
+  <h2>Projects</h2>
+  <div class="grid">
+    <div class="flip" tabindex="0" role="button" aria-pressed="false">
+      <div class="face front">
+        <!-- EDIT: project 1 title and a short description -->
+        <h3><span class="fill">PROJECT 1 TITLE</span></h3>
+        <p><span class="fill">SHORT DESCRIPTION, 1 TO 2 SENTENCES</span></p>
+        <span class="tap">Tap to flip</span>
+      </div>
+      <div class="face back">
+        <!-- EDIT: what you did or learned in project 1 -->
+        <h3>What I did</h3>
+        <p><span class="fill">WHAT YOU DID OR LEARNED</span></p>
+      </div>
+    </div>
+    <div class="flip" tabindex="0" role="button" aria-pressed="false">
+      <div class="face front">
+        <!-- EDIT: project 2 title and a short description -->
+        <h3><span class="fill">PROJECT 2 TITLE</span></h3>
+        <p><span class="fill">SHORT DESCRIPTION, 1 TO 2 SENTENCES</span></p>
+        <span class="tap">Tap to flip</span>
+      </div>
+      <div class="face back">
+        <!-- EDIT: what you did or learned in project 2 -->
+        <h3>What I did</h3>
+        <p><span class="fill">WHAT YOU DID OR LEARNED</span></p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <h2>Skills &amp; interests</h2>
+  <h3 class="sub">Skills</h3>
+  <!-- EDIT: replace SKILL with your skill name. Change 80% to how strong you are, from 0% to 100%. Copy a block to add more. -->
+  <div class="skill"><span class="fill">SKILL 1</span><div class="track"><div class="level" style="--lvl:80%"></div></div></div>
+  <div class="skill"><span class="fill">SKILL 2</span><div class="track"><div class="level" style="--lvl:70%"></div></div></div>
+  <div class="skill"><span class="fill">SKILL 3</span><div class="track"><div class="level" style="--lvl:60%"></div></div></div>
+  <h3 class="sub">Interests</h3>
+  <div class="grid">
+    <div class="box">
+      <h3>Travelling</h3>
+      <!-- EDIT: a place you have been or want to go, and why -->
+      <p><span class="fill">YOUR FAVOURITE PLACE AND WHY</span></p>
+    </div>
+    <div class="box">
+      <h3>Mountains</h3>
+      <!-- EDIT: a trek or peak you love or dream of -->
+      <p><span class="fill">YOUR FAVOURITE TREK OR PEAK AND WHY</span></p>
+    </div>
+  </div>
+</div></section>
+
+<!-- CONTACT: email or social links only. No phone number or home address. -->
+<section id="contact"><div class="wrap">
+  <h2>Say hello</h2>
+  <p>Got a trail recommendation, a project idea or just want to chat? Get in touch.</p>
+  <div class="row" style="justify-content:flex-start">
+    <!-- EDIT: replace YOUR_EMAIL@example.com with your email -->
+    <a class="btn dark" href="mailto:YOUR_EMAIL@example.com">Email me</a>
+    <!-- EDIT: replace YOUR_USERNAME with your GitHub username (keep the rest of the link) -->
+    <a class="btn dark" href="https://github.com/YOUR_USERNAME">GitHub</a>
+    <!-- EDIT: replace YOUR_USERNAME with your LinkedIn link, or delete this whole line -->
+    <a class="btn dark" href="https://www.linkedin.com/in/YOUR_USERNAME">LinkedIn</a>
+    <a class="btn" href="#top">Back to base camp</a>
+  </div>
+</div></section>
+</main>
+
+<footer>Built with HTML, CSS and JavaScript. Fonts: Fraunces and DM Sans from Google Fonts.</footer>
+<div class="alt" aria-hidden="true">▲ <span id="alt">0</span> m</div>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var all = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Stars (visible in night mode)
+  var st = $("#stars");
+  for (var k = 0; k < 70; k++) {
+    var s = document.createElement("i"), z = 1 + Math.random() * 2;
+    s.style.cssText = "left:" + Math.random() * 100 + "%;top:" + Math.random() * 55 + "%;width:" + z + "px;height:" + z + "px";
+    st.appendChild(s);
+  }
+
+  // Dawn / night mode
+  $("#mode").addEventListener("click", function () {
+    var n = document.body.classList.toggle("night");
+    this.textContent = n ? "Dawn mode" : "Night mode";
+    this.setAttribute("aria-pressed", n);
+  });
+
+  // Plant flags on the peaks
+  var planted = 0;
+  all(".layer").forEach(function (l) {
+    l.addEventListener("click", function (e) {
+      var r = l.getBoundingClientRect(), f = document.createElement("i");
+      f.className = "flag";
+      f.style.left = (e.clientX - r.left) / r.width * 100 + "%";
+      f.style.top = (e.clientY - r.top) + "px";
+      l.appendChild(f);
+      $("#flags").textContent = ++planted;
+    });
+  });
+  $("#clear").addEventListener("click", function () {
+    all(".flag").forEach(function (f) { f.remove(); });
+    planted = 0; $("#flags").textContent = 0;
+  });
+
+  // Pick my next summit
+  var peaks = ["Mount Fuji, Japan", "The Matterhorn, Switzerland and Italy", "Kilimanjaro, Tanzania",
+    "Mount Kinabalu, Malaysia", "Annapurna Circuit, Nepal", "Mont Blanc, France and Italy"], last = -1;
+  $("#summit").addEventListener("click", function () {
+    var j; do { j = Math.floor(Math.random() * peaks.length); } while (j === last);
+    last = j; $("#next").textContent = "Next up: " + peaks[j];
+  });
+
+  // Snowfall
+  var cv = $("#snow"), cx = cv.getContext("2d"), fl = [], snowing = false, raf;
+  function size() { cv.width = cv.offsetWidth; cv.height = cv.offsetHeight; }
+  size(); window.addEventListener("resize", size);
+  for (var m = 0; m < 90; m++) fl.push({ x: Math.random() * cv.width, y: Math.random() * cv.height, r: 1 + Math.random() * 2.5, s: .4 + Math.random() * 1.1, d: Math.random() * 6 });
+  function tick() {
+    cx.clearRect(0, 0, cv.width, cv.height); cx.fillStyle = "rgba(255,255,255,.85)";
+    fl.forEach(function (f) {
+      f.y += f.s; f.d += .02; f.x += Math.sin(f.d) * .5;
+      if (f.y > cv.height) { f.y = -5; f.x = Math.random() * cv.width; }
+      cx.beginPath(); cx.arc(f.x, f.y, f.r, 0, 7); cx.fill();
+    });
+    raf = requestAnimationFrame(tick);
+  }
+  var sb = $("#snowbtn");
+  if (reduce) sb.style.display = "none";
+  sb.addEventListener("click", function () {
+    snowing = !snowing;
+    this.textContent = snowing ? "Stop the snow" : "Let it snow";
+    this.setAttribute("aria-pressed", snowing);
+    if (snowing) tick(); else { cancelAnimationFrame(raf); cx.clearRect(0, 0, cv.width, cv.height); }
+  });
+
+  // Parallax mountains and altitude meter
+  var ls = all(".layer"), sp = [.35, .22, .12, .04];
+  function onScroll() {
+    var y = window.scrollY;
+    if (!reduce && y < window.innerHeight * 1.5) ls.forEach(function (l, i) { l.style.transform = "translateY(" + y * sp[i] + "px)"; });
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    $("#alt").textContent = Math.round(Math.min(1, y / max) * 4800).toLocaleString("en-US");
+  }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // Flip project cards
+  all(".flip").forEach(function (c) {
+    function flip() { var on = c.classList.toggle("on"); c.setAttribute("aria-pressed", on); }
+    c.addEventListener("click", flip);
+    c.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+  });
+
+  // Skill bars fill when visible
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: .4 });
+  all(".skill").forEach(function (s) { io.observe(s); });
+})();
+</script>
+</body>
+</html>
