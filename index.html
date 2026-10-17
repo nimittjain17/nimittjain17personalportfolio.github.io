@@ -95,6 +95,64 @@ section p{max-width:62ch;margin-bottom:12px}
 footer{background:var(--deep);color:#fff;text-align:center;padding:26px 18px;font-size:.9rem}
 .alt{position:fixed;right:12px;bottom:12px;z-index:50;background:rgba(11,19,32,.9);color:#fff;border-radius:999px;padding:6px 14px;font-weight:700;font-size:.85rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+
+
+/* Interest cards: reveal an image on hover */
+.interest-card {
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.3s ease,
+              transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* Dark overlay keeps the text readable */
+.interest-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+/* Keep card content above the overlay */
+.interest-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Travel image */
+.interest-card.travel:hover {
+  background-image: url("images/travel.jpg");
+}
+
+/* Football image */
+.interest-card.football:hover {
+  background-image: url("images/football.jpg");
+}
+
+/* Cricket image */
+.interest-card.cricket:hover {
+  background-image: url("images/cricket.jpg");
+}
+
+/* Show the overlay and slightly enlarge the card */
+.interest-card:hover::before {
+  opacity: 1;
+}
+
+.interest-card:hover {
+  transform: translateY(-4px);
+}
+
+.interest-card.mountains:hover {
+  background-image: url("images/mountains.jpg");
+}
+  
 </style>
 </head>
 
@@ -206,16 +264,16 @@ footer{background:var(--deep);color:#fff;text-align:center;padding:26px 18px;fon
   <div class="skill">Machine Learning & Data Visualization<div class="track"><div class="level" style="--lvl:76%"></div></div></div>
   <h3 class="sub">Interests</h3>
   <div class="grid">
-    <div class="box">
+    <div class="box interest-card travel">
       <h3>Travelling</h3>
       <!-- EDIT: a place you have been or want to go, and why -->
       <p>I enjoy discovering new places, taking the scenic route, and seeing familiar things from a different perspective.</p>
     </div>
-    <div class="box">
+    <div class="box interest-card mountains">
       <h3>Mountains</h3>
       <p>Mountain landscapes inspire my sense of exploration. A future Himalayan trip or trek would combine travel, challenge, and curiosity.</p>
     </div>
-    <div class="box">
+    <div class="box interest-card football">
       <h3>Football &amp; Cricket</h3>
       <p>I enjoy the tactics, teamwork, and quick decisions behind sport. I also captained my school cricket team.</p>
     </div>
