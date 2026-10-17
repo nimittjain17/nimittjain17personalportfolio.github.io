@@ -152,6 +152,26 @@ footer{background:var(--deep);color:#fff;text-align:center;padding:26px 18px;fon
 .interest-card.mountains:hover {
   background-image: url("mountains.jpg");
 }
+
+
+.avatar {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  overflow: hidden;
+  background: var(--bg);
+  border: 4px solid var(--glacier);
+  box-shadow: 0 0 20px rgba(169, 211, 224, 0.3);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
   
 </style>
 </head>
@@ -188,7 +208,9 @@ footer{background:var(--deep);color:#fff;text-align:center;padding:26px 18px;fon
   <canvas id="snow"></canvas>
 
   <div class="content">
-    <div class="avatar">NJ</div>
+    <div class="avatar">
+  <img src="profile.jpg" alt="Nimitt Jain">
+    </div>
     <!-- EDIT: your full name -->
     <h1>Hi, I’m Nimitt Jain</h1>
     <!-- EDIT: one line about you, e.g. "Student, traveller and mountain chaser." -->
